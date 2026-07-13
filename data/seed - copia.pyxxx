@@ -1,0 +1,130 @@
+
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+from database import get_connection, execute_script
+
+
+def seed():
+
+    # Crear estructura
+    execute_script("d:/missions/data/squema.sql")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+
+    # =====================
+    # FAMÍLIA
+    # =====================
+
+    cursor.execute("""
+        INSERT INTO families (name)
+        VALUES ('RoigAlvarez')
+    """)
+
+    family_id = cursor.lastrowid
+
+
+    # =====================
+    # USUARIS
+    # =====================
+
+    users = [
+        ("Laura", "admin", "purple"),
+        ("Rachel", "admin", "orange"),
+        ("Iris", "child", "blue"),
+        ("Roc", "child", "green")
+    ]
+
+
+    for name, role, color in users:
+
+        cursor.execute("""
+            INSERT INTO users
+            (family_id,name,role,favorite_color)
+            VALUES (?,?,?,?)
+        """,
+        (family_id,name,role,color))
+
+
+    # =====================
+    # CATEGORIES
+    # =====================
+
+    categories = [
+        ("Casa","🏠"),
+        ("Escola","📚"),
+        ("Extraescolars","🏑"),
+        ("Mascotes","🐶"),
+        ("Piscina","🏊"),
+        ("Hàbits","💪"),
+        ("Especials","🎉")
+    ]
+
+
+    for name,icon in categories:
+
+        cursor.execute("""
+            INSERT INTO categories
+            (name,icon)
+            VALUES (?,?)
+        """,
+        (name,icon))
+
+
+    # =====================
+    # TIPUS MISSIÓ
+    # =====================
+
+    types = [
+        ("Individual","Només un usuari"),
+        ("Compartida","Qualsevol assignat pot completar"),
+        ("Col·laborativa","Tots han de participar"),
+        ("Rotativa","Canvia segons torn"),
+        ("Lliure","Qualsevol membre")
+    ]
+
+
+    for name,description in types:
+
+        cursor.execute("""
+            INSERT INTO mission_types
+            (name,description)
+            VALUES (?,?)
+        """,
+        (name,description))
+
+
+    # =====================
+    # RECOMPENSES
+    # =====================
+
+    rewards = [
+        ("Gelat",200),
+        ("Escollir sopar",150),
+        ("Pel·lícula familiar",400),
+        ("Temps extra pantalla",300)
+    ]
+
+
+    for name,points in rewards:
+
+        cursor.execute("""
+            INSERT INTO rewards
+            (family_id,name,points_required)
+            VALUES (?,?,?)
+        """,
+        (family_id,name,points))
+
+
+    conn.commit()
+    conn.close()
+
+    print("✅ Base de dades creada correctament")
+
+
+if __name__ == "__main__":
+    seed()
