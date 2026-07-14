@@ -1,147 +1,272 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}
+Dashboard · Missions
+{% endblock %}
+
 
 {% block content %}
 
+
 <div class="row">
+
 
     <div class="col-12">
 
+
         <div class="card shadow-sm border-0 mb-4">
+
 
             <div class="card-body">
 
-                <h2 class="mb-1">
+
+                <h2>
 
                     Hola {{ user.name }} 👋
 
                 </h2>
 
+
                 <p class="text-muted mb-0">
 
-                    Benvingut a Missions
+                    Avui pots aconseguir més punts!
 
                 </p>
 
+
             </div>
+
 
         </div>
 
+
     </div>
 
+
 </div>
+
 
 
 <div class="row g-3 mb-4">
 
-    <div class="col-6">
-
-        <div class="card text-center shadow-sm">
-
-            <div class="card-body">
-
-                <h5>Punts</h5>
-
-                <h2 class="text-primary">
-
-                    {{ total_points }}
-
-                </h2>
-
-            </div>
-
-        </div>
-
-    </div>
 
     <div class="col-6">
 
+
         <div class="card text-center shadow-sm">
+
 
             <div class="card-body">
 
-                <h5>Missions</h5>
 
-                <h2 class="text-success">
+                <div class="fs-2">
 
-                    {{ total_missions }}
-
-                </h2>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card shadow-sm">
-
-    <div class="card-header">
-
-        <strong>
-
-            📋 Les meves missions
-
-        </strong>
-
-    </div>
-
-    <div class="list-group list-group-flush">
-
-        {% if missions %}
-
-            {% for mission in missions %}
-
-                <div class="list-group-item">
-
-                    <div class="d-flex justify-content-between align-items-center">
-
-                        <div>
-
-                            <strong>
-
-                                {{ mission.title }}
-
-                            </strong>
-
-                            <br>
-
-                            <small class="text-muted">
-
-                                {{ mission.category }}
-
-                            </small>
-
-                        </div>
-
-                        <span class="badge bg-primary">
-
-                            {{ mission.points }} ⭐
-
-                        </span>
-
-                    </div>
+                    ⭐
 
                 </div>
 
-            {% endfor %}
 
-        {% else %}
+                <h3>
 
-            <div class="list-group-item text-center text-muted">
+                    {{ user.points }}
 
-                No tens missions pendents 🎉
+                </h3>
+
+
+                <small class="text-muted">
+
+                    Punts
+
+                </small>
+
 
             </div>
 
-        {% endif %}
+
+        </div>
+
 
     </div>
 
+
+
+    <div class="col-6">
+
+
+        <div class="card text-center shadow-sm">
+
+
+            <div class="card-body">
+
+
+                <div class="fs-2">
+
+                    🏆
+
+                </div>
+
+
+                <h3>
+
+                    {{ user.level }}
+
+                </h3>
+
+
+                <small class="text-muted">
+
+                    Nivell
+
+                </small>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
 </div>
+
+
+
+
+<div class="card shadow-sm border-0">
+
+
+    <div class="card-header">
+
+        📋 Les meves missions
+
+    </div>
+
+
+
+    <div class="list-group list-group-flush">
+
+
+
+    {% for mission in missions %}
+
+
+        <div class="list-group-item">
+
+
+            <div class="d-flex justify-content-between align-items-center">
+
+
+                <div>
+
+
+                    <strong>
+
+                        {{ mission.icon or "🎯" }}
+
+                        {{ mission.title }}
+
+                    </strong>
+
+
+                    <br>
+
+
+                    <small class="text-muted">
+
+                        {{ mission.category }}
+
+                    </small>
+
+
+
+                    {% if mission.assignment_type == "shared" %}
+
+                        <span class="badge bg-info">
+
+                            👥 Missió compartida
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-secondary">
+
+                            👤 Individual
+
+                        </span>
+
+                    {% endif %}
+
+
+
+                    {% if mission.status == "completed" %}
+
+                        <span class="badge bg-success">
+
+                            🟢 Feta
+
+                        </span>
+
+
+                        {% if mission.completed_by_name %}
+
+                            <small class="text-muted">
+
+                                per {{ mission.completed_by_name }}
+
+                            </small>
+
+                        {% endif %}
+
+
+                    {% elif mission.status == "pending" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            🟡 Pendent
+
+                        </span>
+
+
+                    {% endif %}
+                </div>
+
+
+
+                <span class="badge bg-primary">
+
+                    +{{ mission.points }} ⭐
+
+                </span>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    {% else %}
+
+
+        <div class="p-4 text-center text-muted">
+
+            No tens missions assignades 🎉
+
+        </div>
+
+
+    {% endfor %}
+
+
+
+    </div>
+
+
+</div>
+
 
 {% endblock %}

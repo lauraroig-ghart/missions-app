@@ -1,0 +1,401 @@
+/* ==========================================
+   MISSIONS DESIGN SYSTEM
+   COMPONENTS
+========================================== */
+
+
+/* ==========================================
+   CARD
+========================================== */
+
+.card-ui{
+
+    background:var(--surface);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:var(--space-5);
+
+    transition:var(--transition);
+
+}
+
+.card-ui:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+
+/* ==========================================
+   MISSION CARD
+========================================== */
+
+.mission-card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:var(--space-5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:var(--space-4);
+
+    transition:var(--transition);
+
+}
+
+.mission-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+.mission-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:var(--space-4);
+
+}
+
+.mission-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:var(--surface-2);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2rem;
+
+}
+
+.mission-title{
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+}
+
+.mission-category{
+
+    color:var(--text-light);
+
+    font-size:var(--font-sm);
+
+}
+
+.mission-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+/* ==========================================
+   PROGRESS BAR
+========================================== */
+
+.progress-ui{
+
+    width:100%;
+
+    height:12px;
+
+    background:var(--surface-2);
+
+    border-radius:100px;
+
+    overflow:hidden;
+
+}
+
+.progress-ui-value{
+
+    height:100%;
+
+    background:var(--primary);
+
+    border-radius:100px;
+
+    transition:width .4s ease;
+
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn-ui{
+
+    border:none;
+
+    border-radius:var(--radius-md);
+
+    padding:12px 18px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.btn-primary-ui{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.btn-primary-ui:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.btn-success-ui{
+
+    background:var(--success);
+
+    color:white;
+
+}
+
+.btn-warning-ui{
+
+    background:var(--warning);
+
+    color:white;
+
+}
+
+.btn-danger-ui{
+
+    background:var(--danger);
+
+    color:white;
+
+}
+
+
+/* ==========================================
+   BADGES
+========================================== */
+
+.badge-ui{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+}
+
+.badge-success{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.badge-warning{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.badge-danger{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+.badge-info{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+
+/* ==========================================
+   AVATAR
+========================================== */
+
+.avatar{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+}
+
+
+/* ==========================================
+   STAT CARD
+========================================== */
+
+.stat-card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--shadow-sm);
+
+    padding:var(--space-5);
+
+    text-align:center;
+
+}
+
+.stat-icon{
+
+    font-size:2rem;
+
+    margin-bottom:var(--space-3);
+
+}
+
+.stat-value{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+}
+
+.stat-label{
+
+    color:var(--text-light);
+
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-state{
+
+    text-align:center;
+
+    padding:var(--space-8);
+
+    color:var(--text-light);
+
+}
+
+.empty-state .icon{
+
+    font-size:4rem;
+
+    margin-bottom:var(--space-4);
+
+}
+
+
+/* ==========================================
+   ANIMACIONS
+========================================== */
+
+.hover-lift{
+
+    transition:var(--transition);
+
+}
+
+.hover-lift:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.fade-in{
+
+    animation:fadeIn .35s ease;
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

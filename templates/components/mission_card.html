@@ -1,0 +1,88 @@
+<div class="mission-card hover-lift fade-in">
+
+    <div class="mission-header">
+
+        <div>
+
+            <div class="mission-title">
+
+                {{ mission.icon or "🎯" }}
+                {{ mission.title }}
+
+            </div>
+
+            <div class="mission-category">
+
+                {{ mission.category }}
+
+            </div>
+
+        </div>
+
+        <div>
+
+            {% if mission.status=="completed" %}
+
+                <span class="badge-ui badge-success">
+
+                    ✅ Completada
+
+                </span>
+
+            {% elif mission.status=="pending" %}
+
+                <span class="badge-ui badge-warning">
+
+                    ⏳ Pendent
+
+                </span>
+
+            {% else %}
+
+                <span class="badge-ui badge-danger">
+
+                    ❌ Caducada
+
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    {% if mission.description %}
+
+    <p>
+
+        {{ mission.description }}
+
+    </p>
+
+    {% endif %}
+
+
+    <div class="mission-footer">
+
+        <div>
+
+            ⭐ {{ mission.points }} XP
+
+        </div>
+
+        <div>
+
+            🪙 {{ mission.coins or 0 }}
+
+        </div>
+
+    </div>
+
+    <button class="btn-ui btn-primary-ui">
+
+        Completar
+
+    </button>
+
+</div>

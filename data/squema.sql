@@ -42,6 +42,8 @@ CREATE TABLE users (
     level INTEGER DEFAULT 1,
 
     birthdate DATE,
+    
+    last_login DATETIME,
 
     active INTEGER DEFAULT 1,
 

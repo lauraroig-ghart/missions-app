@@ -1,0 +1,25 @@
+<nav class="topbar">
+
+    <div class="topbar-title">
+
+        🎯 Missions
+
+    </div>
+
+    <div class="topbar-actions">
+
+        <span>
+
+            {{ session.get("user_name") }}
+
+        </span>
+
+        <a href="{{ url_for('auth.logout') }}" class="btn-ui btn-danger-ui">
+
+            Sortir
+
+        </a>
+
+    </div>
+
+</nav>

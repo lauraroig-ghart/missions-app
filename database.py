@@ -131,15 +131,19 @@ def get_user_missions(user_id):
         """
         SELECT
 
-            ma.id               AS assignment_id,
+            ma.id AS assignment_id,
 
             ma.status,
+
+            ma.assignment_type,
+
+            ma.completed_by,
 
             ma.due_date,
 
             ma.assigned_date,
 
-            m.id,
+            m.id AS mission_id,
 
             m.title,
 
@@ -155,22 +159,38 @@ def get_user_missions(user_id):
 
             c.color,
 
-            c.icon AS category_icon
+            c.icon AS category_icon,
+
+            u.name AS completed_by_name
+
 
         FROM mission_assignments ma
+
 
         INNER JOIN missions m
             ON m.id = ma.mission_id
 
+
         INNER JOIN categories c
             ON c.id = m.category_id
 
+
+        LEFT JOIN users u
+            ON u.id = ma.completed_by
+
+
         WHERE ma.user_id = ?
+
           AND m.active = 1
 
+
         ORDER BY
+
             c.sort_order,
+
             m.title
+
         """,
+
         (user_id,)
     )
