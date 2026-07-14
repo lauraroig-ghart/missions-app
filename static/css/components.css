@@ -399,3 +399,109 @@
     }
 
 }
+
+/* ==========================================
+   MISSION CARD V2
+========================================== */
+
+.mission-description{
+
+    color:var(--text-light);
+
+    line-height:1.5;
+
+    min-height:44px;
+
+}
+
+.mission-rewards{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.reward{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:8px 12px;
+
+    border-radius:999px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+}
+
+.reward.xp{
+
+    background:#ede9fe;
+
+    color:#6d28d9;
+
+}
+
+.reward.coins{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:.85rem;
+
+    font-weight:700;
+
+}
+
+.status.pending{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.status.completed{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.status.validation{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+.status.in-progress{
+
+    background:#ede9fe;
+
+    color:#6d28d9;
+
+}

@@ -1,272 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}
-Dashboard · Missions
-{% endblock %}
+{% block title %}Dashboard · Missions{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
 
 {% block content %}
 
+<section class="hero">
 
-<div class="row">
+    <h1>🎮 {{ user.name }}</h1>
 
+    <p>Preparat per completar les missions d'avui?</p>
 
-    <div class="col-12">
-
-
-        <div class="card shadow-sm border-0 mb-4">
-
-
-            <div class="card-body">
+</section>
 
 
-                <h2>
+<div class="stats-grid">
 
-                    Hola {{ user.name }} 👋
+    {% set stat={"icon":"⭐","value":user.points,"label":"XP"} %}
+    {% include "components/stat_card.html" %}
 
-                </h2>
+    {% set stat={"icon":"🏆","value":user.level,"label":"Nivell"} %}
+    {% include "components/stat_card.html" %}
 
+    {% set stat={"icon":"💰","value":0,"label":"Monedes"} %}
+    {% include "components/stat_card.html" %}
 
-                <p class="text-muted mb-0">
-
-                    Avui pots aconseguir més punts!
-
-                </p>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
+    {% set stat={"icon":"🔥","value":0,"label":"Ratxa"} %}
+    {% include "components/stat_card.html" %}
 
 </div>
 
 
+<section class="section">
 
-<div class="row g-3 mb-4">
+    <h2>🎯 Les missions d'avui</h2>
 
+    <div class="mission-grid">
 
-    <div class="col-6">
+        {% for mission in missions %}
 
+            {% include "components/mission_card.html" %}
 
-        <div class="card text-center shadow-sm">
+        {% else %}
 
+            <div class="empty-state">
 
-            <div class="card-body">
+                <div class="icon">🎉</div>
 
+                <h3>No tens missions</h3>
 
-                <div class="fs-2">
-
-                    ⭐
-
-                </div>
-
-
-                <h3>
-
-                    {{ user.points }}
-
-                </h3>
-
-
-                <small class="text-muted">
-
-                    Punts
-
-                </small>
-
+                <p>Gaudeix del dia!</p>
 
             </div>
 
-
-        </div>
-
+        {% endfor %}
 
     </div>
 
-
-
-    <div class="col-6">
-
-
-        <div class="card text-center shadow-sm">
-
-
-            <div class="card-body">
-
-
-                <div class="fs-2">
-
-                    🏆
-
-                </div>
-
-
-                <h3>
-
-                    {{ user.level }}
-
-                </h3>
-
-
-                <small class="text-muted">
-
-                    Nivell
-
-                </small>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-</div>
-
-
-
-
-<div class="card shadow-sm border-0">
-
-
-    <div class="card-header">
-
-        📋 Les meves missions
-
-    </div>
-
-
-
-    <div class="list-group list-group-flush">
-
-
-
-    {% for mission in missions %}
-
-
-        <div class="list-group-item">
-
-
-            <div class="d-flex justify-content-between align-items-center">
-
-
-                <div>
-
-
-                    <strong>
-
-                        {{ mission.icon or "🎯" }}
-
-                        {{ mission.title }}
-
-                    </strong>
-
-
-                    <br>
-
-
-                    <small class="text-muted">
-
-                        {{ mission.category }}
-
-                    </small>
-
-
-
-                    {% if mission.assignment_type == "shared" %}
-
-                        <span class="badge bg-info">
-
-                            👥 Missió compartida
-
-                        </span>
-
-                    {% else %}
-
-                        <span class="badge bg-secondary">
-
-                            👤 Individual
-
-                        </span>
-
-                    {% endif %}
-
-
-
-                    {% if mission.status == "completed" %}
-
-                        <span class="badge bg-success">
-
-                            🟢 Feta
-
-                        </span>
-
-
-                        {% if mission.completed_by_name %}
-
-                            <small class="text-muted">
-
-                                per {{ mission.completed_by_name }}
-
-                            </small>
-
-                        {% endif %}
-
-
-                    {% elif mission.status == "pending" %}
-
-                        <span class="badge bg-warning text-dark">
-
-                            🟡 Pendent
-
-                        </span>
-
-
-                    {% endif %}
-                </div>
-
-
-
-                <span class="badge bg-primary">
-
-                    +{{ mission.points }} ⭐
-
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-
-    {% else %}
-
-
-        <div class="p-4 text-center text-muted">
-
-            No tens missions assignades 🎉
-
-        </div>
-
-
-    {% endfor %}
-
-
-
-    </div>
-
-
-</div>
-
+</section>
 
 {% endblock %}

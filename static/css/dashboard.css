@@ -1,0 +1,141 @@
+/* ==========================================
+   DASHBOARD
+   ========================================== */
+
+.hero{
+    margin-bottom:40px;
+}
+
+.hero h1{
+    font-size:2.2rem;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:var(--text-light);
+    font-size:1rem;
+}
+
+/* ==========================================
+   ESTADÍSTIQUES
+   ========================================== */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:24px;
+    margin-bottom:40px;
+}
+
+/* ==========================================
+   SECCIONS
+   ========================================== */
+
+.section{
+    margin-top:40px;
+}
+
+.section h2{
+    margin-bottom:24px;
+}
+
+/* ==========================================
+   MISSIONS
+   ========================================== */
+
+.mission-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:24px;
+    align-items: stretch; // Les targetes s'estiraran per omplir l'alçada 
+    justify-items: stretch; // Les targetes s'estiraran per omplir l'amplada de la columna 
+    padding: 0 1rem; // Afegeix una mica d'aire pels costats 
+}
+
+
+
+.mission-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    
+    /* Aquesta és l'ombra principal (més suau i difusa) */
+    /* Format: desplaçament-x, desplaçament-y, difusió, extensió, color */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                
+    /* Si no tenies bord, assegura't que no en quedi cap de l'antic */
+    border: 1px solid rgba(0,0,0,0.05); 
+
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+    /* La transició és clau perquè l'efecte hover sigui fluid */
+    transition: all 0.3s ease-in-out; /* or : transition: var(--transition);*/
+
+}
+
+.mission-card:hover {
+    /* L'efecte d'elevar-se: l'ombra es fa més gran i difusa */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                
+    /* La targeta puja lleugerament cap a munt */
+    transform: translateY(-5px); 
+    
+    /* Opcional: un bord una mica més visible al passar el ratolí */
+    border-color: rgba(0,0,0,0.1);
+}
+
+.mission-description {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    flex-grow: 1;         /* Aquesta línia és màgica: fa que el text ocupi l'espai restant */
+}
+
+.mission-footer {
+    margin-top: auto;      /* Empeny el footer cap a la base de la targeta */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.mission-rewards {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width:768px){
+
+    .hero h1{
+        font-size:1.8rem;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .mission-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+}
