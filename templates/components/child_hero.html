@@ -1,0 +1,37 @@
+<section class="child-hero">
+
+    <div class="child-info">
+
+        <div class="child-avatar">
+            🎮
+        </div>
+
+        <div>
+
+            <h1> {{ user.name }} </h1>
+
+            <p>La teva consola de missions t'està esperant.</p>
+
+        </div>
+
+    </div>
+
+    <div class="hero-progress">
+
+        <div class="hero-level">
+
+            <span>Nivell {{ user.level }}</span>
+
+            <span>{{ user.points }} XP</span>
+
+        </div>
+
+        <div class="progress-ui">
+
+            <div class="progress-ui-value" style="width: {{ (user.points % 100) }}%;"></div>
+
+        </div>
+
+    </div>
+
+</section>

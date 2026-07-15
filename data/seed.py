@@ -361,7 +361,24 @@ def seed():
         (family_id,name,cost))
 
 
+        # Exemples d'assignacions amb estats predefinits
+            # (mission_title, user_name, type, status)
+            test_assignments = [
+                ("Fer el llit", "Iris", "owner", "completed"),      # Ja feta
+                ("Deures", "Iris", "owner", "pending"),             # Pendent
+                ("Passejar gos", "Iris", "shared", "pending"),      # Disponible (compartida)
+                ("Netejar fons piscina", "Roc", "team", "pending"), # Pendent
+                ("Treure escombraries", "Roc", "shared", "pending") # Disponible
+            ]
 
+            for title, user, atype, status in test_assignments:
+                cursor.execute("""
+                INSERT INTO mission_assignments
+                (mission_id, user_id, assignment_type, status)
+                VALUES (?, ?, ?, ?)
+                """, (mission_ids[title], user_ids[user], atype, status))
+
+                
     conn.commit()
     conn.close()
 

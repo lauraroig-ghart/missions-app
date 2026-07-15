@@ -1,0 +1,25 @@
+<div class="mission-card">
+    <div class="mission-header">
+        <div class="mission-icon">{{ mission.icon or "🎯" }}</div>
+        <div class="mission-title">
+            <strong>{{ mission.title }}</strong>
+            <div class="mission-category">{{ mission.category }}</div>
+        </div>
+    </div>
+
+    {% if mission.description %}
+    <div class="mission-description">
+        {{ mission.description }}
+    </div>
+    {% endif %}
+
+    <div class="mission-rewards">
+        <span class="reward xp">⭐ {{ mission.points }} XP</span>
+        <span class="reward coins"> 💰 {{ mission.coins or 0 }}</span>
+    </div>
+
+    <div class="mission-footer">
+        <span class="badge badge-warning">⏳ Pendent</span>
+        <button class="btn-ui btn-primary-ui"> OK </button>
+    </div>
+</div>
