@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Administració{% endblock %}
+
+{% block content %}
+<section class="section"> 
+    <div class="container-fluid"> 
+        <h2>⏳ Pendents de validar</h2> 
+
+        <div class="mission-grid">
+            {% for mission in waiting %}
+                {% include "components/mission_card.html" %}
+            {% else %}
+                <div class="empty-state">
+                    <h3>No hi ha missions pendents</h3>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

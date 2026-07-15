@@ -171,3 +171,15 @@
     background:white;
 
 }
+
+.mission-grid{
+    display:grid !important;
+    grid-template-columns:repeat(auto-fill, minmax(320px, 360px)) !important;
+    gap:24px !important;
+}
+
+.mission-card{
+    width:auto !important;
+    max-width:360px !important;
+}
+

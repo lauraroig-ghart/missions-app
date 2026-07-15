@@ -7,6 +7,7 @@ from routes.ui import ui_bp
 from routes.auth import auth_bp
 from routes.dashboard import dashboard_bp
 from routes.missions import missions_bp
+from routes.admin import admin_bp
 
 
 app = Flask(__name__)
@@ -20,6 +21,8 @@ app.register_blueprint(auth_bp)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(missions_bp)
 app.register_blueprint(ui_bp)
+app.register_blueprint(admin_bp)
+
 
 @app.route("/")
 def index():

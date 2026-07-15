@@ -11,7 +11,9 @@ from flask import (
 from database import (
     get_user,
     get_user_missions,
-    complete_mission
+    complete_mission,
+    approve_mission, 
+    reject_mission
 )
 
 missions_bp = Blueprint("missions", __name__)
@@ -20,7 +22,7 @@ missions_bp = Blueprint("missions", __name__)
 
 @missions_bp.get("/missions")
 def missions():
-
+    print ("Sessió actual:", session)
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
 
@@ -47,3 +49,19 @@ def complete(assignment_id):
     )
 
     return redirect(url_for("dashboard.dashboard"))
+
+@missions_bp.post("/admin/mission/<int:assignment_id>/approve")
+def approve(assignment_id):
+    
+    # Aquí crides a la funció que fa el canvi a la BD (aprovar)
+    approve_mission(assignment_id)
+    
+    return redirect(url_for("admin.admin")) # Torna a la pàgina d'admin
+
+@missions_bp.post("/admin/mission/<int:assignment_id>/reject")
+def reject(assignment_id):
+     
+    # Aquí crides a la funció que fa el canvi a la BD (rebutjar)
+    reject_mission(assignment_id)
+    
+    return redirect(url_for("admin.admin"))

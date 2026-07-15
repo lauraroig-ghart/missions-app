@@ -225,3 +225,80 @@ def complete_mission(assignment_id, user_id):
             user_id
         )
     )
+     
+def get_waiting_validations():
+
+    return query(
+        """
+        SELECT
+
+            ma.id AS assignment_id,
+
+            ma.status,
+
+            ma.assignment_type,
+
+            ma.completed_at,
+
+            m.title as title,
+
+            m.description,
+
+            m.icon,
+
+            m.points,
+
+            c.name AS category,
+
+            u.name AS gamer_name
+
+        FROM mission_assignments ma
+
+        INNER JOIN missions m
+            ON m.id = ma.mission_id
+
+        INNER JOIN categories c
+            ON c.id = m.category_id
+
+        INNER JOIN users u
+            ON u.id = ma.user_id
+
+        WHERE ma.status='waiting_validation'
+
+        ORDER BY ma.completed_at
+        """
+    )
+def approve_mission(assignment_id):
+    # 1. Marquem la missió com a completada
+    execute(
+        """
+        UPDATE mission_assignments
+        SET status='completed', completed_at=?
+        WHERE id=?
+        """,
+        (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), assignment_id)
+    )
+    
+    # 2. Sumem els punts a l'usuari (assumint que tens la relació amb user_id)
+    # Primer busquem quants punts té la missió i qui és l'usuari
+    data = query("""
+        SELECT ma.user_id, m.points 
+        FROM mission_assignments ma
+        JOIN missions m ON m.id = ma.mission_id
+        WHERE ma.id = ?
+    """, (assignment_id,))
+    
+    if data:
+        user_id, points = data[0]['user_id'], data[0]['points']
+        execute("UPDATE users SET points = points + ? WHERE id = ?", (points, user_id))
+
+def reject_mission(assignment_id):
+    # Tornem la missió a 'pending' perquè el nen ho pugui tornar a intentar
+    execute(
+        """
+        UPDATE mission_assignments
+        SET status='pending', completed_at=NULL, completed_by=NULL
+        WHERE id=?
+        """,
+        (assignment_id,)
+    )

@@ -35,6 +35,7 @@ def dashboard():
     return render_template(
         "dashboard.html",
         user=user,
+        missions=missions,
         pending_missions=pending_missions,
         waiting_missions=waiting_missions,
         total_missions=total_missions,
