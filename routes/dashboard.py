@@ -8,7 +8,6 @@ dashboard_bp = Blueprint("dashboard", __name__)
 @dashboard_bp.route("/dashboard")
 def dashboard():
 
-    # Comprovar si hi ha sessió
     if "user_id" not in session:
         return redirect(url_for("auth.login"))
 
@@ -20,13 +19,24 @@ def dashboard():
 
     missions = get_user_missions(user["id"])
 
+    pending_missions = [
+        m for m in missions
+        if m["status"] == "pending"
+    ]
+
+    waiting_missions = [
+        m for m in missions
+        if m["status"] == "waiting_validation"
+    ]
+
     total_missions = len(missions)
     total_points = user["points"]
 
     return render_template(
         "dashboard.html",
         user=user,
-        missions=missions,
+        pending_missions=pending_missions,
+        waiting_missions=waiting_missions,
         total_missions=total_missions,
         total_points=total_points
     )

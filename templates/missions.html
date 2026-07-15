@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Les meves missions
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+
+    <h1>🎯 Les meves missions</h1>
+
+    <p>Completa missions i guanya XP.</p>
+
+</section>
+
+
+<div class="mission-grid">
+
+    {% for mission in missions %}
+
+        {% include "components/mission_card.html" %}
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <div class="icon">🎉</div>
+
+            <h3>No tens missions</h3>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

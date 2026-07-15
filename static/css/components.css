@@ -655,3 +655,37 @@
 .category-piscina::before{
     background:#06b6d4;
 }
+
+.mission-button.waiting{
+
+    width:100%;
+    text-align:center;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#FEF3C7;
+
+    color:#92400E;
+
+    font-weight:600;
+
+}
+
+.mission-button.completed{
+
+    width:100%;
+    text-align:center;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    background:#DCFCE7;
+
+    color:#166534;
+
+    font-weight:600;
+
+}

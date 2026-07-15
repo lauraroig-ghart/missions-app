@@ -1,6 +1,7 @@
 import sqlite3
 from pathlib import Path
 from config import Config
+from datetime import datetime
 
 
 DB_PATH = Path(Config.DATABASE)
@@ -182,9 +183,16 @@ def get_user_missions(user_id):
         WHERE ma.user_id = ?
 
           AND m.active = 1
+          AND ma.status <> 'cancelled'
 
 
         ORDER BY
+            CASE ma.status
+                WHEN 'pending' THEN 1
+                WHEN 'waiting_validation' THEN 2
+                WHEN 'completed' THEN 3
+                ELSE 4
+            END,
 
             c.sort_order,
 
@@ -193,4 +201,27 @@ def get_user_missions(user_id):
         """,
 
         (user_id,)
+    )
+
+def complete_mission(assignment_id, user_id):
+     print("ASSIGNMENT:", assignment_id)
+     print("USER:", user_id)
+     execute(
+        """
+        UPDATE mission_assignments
+        SET
+            status=?,
+            completed_at=?,
+            completed_by=?
+        WHERE id=?
+          AND user_id=?
+          AND status='pending'
+        """,
+        (
+            "waiting_validation",
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            user_id,
+            assignment_id,
+            user_id
+        )
     )

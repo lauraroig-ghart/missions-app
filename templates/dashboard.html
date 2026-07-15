@@ -32,9 +32,9 @@
 
     <h2>🎯 Les missions d'avui</h2>
 
-    <div class="mission-grid">
+   <div class="mission-grid">
 
-        {% for mission in missions %}
+        {% for mission in pending_missions %}
 
             {% include "components/mission_card.html" %}
 
@@ -44,15 +44,31 @@
 
                 <div class="icon">🎉</div>
 
-                <h3>No tens missions</h3>
-
-                <p>Gaudeix del dia!</p>
+                <h3>No tens missions pendents</h3>
 
             </div>
 
         {% endfor %}
 
     </div>
+
+    {% if waiting_missions %}
+
+    <hr>
+
+    <h2>⏳ Esperant validació</h2>
+
+    <div class="mission-grid">
+
+        {% for mission in waiting_missions %}
+
+            {% include "components/mission_card.html" %}
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
 
 </section>
 

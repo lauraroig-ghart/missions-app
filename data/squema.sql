@@ -159,13 +159,19 @@ CREATE TABLE mission_assignments (
 
     completed_by INTEGER,
 
+    validated_at DATETIME,
+
+    validated_by INTEGER,
+
     comment TEXT,
     
     FOREIGN KEY (mission_id) REFERENCES missions(id),
 
     FOREIGN KEY (user_id) REFERENCES users(id),
 
-    FOREIGN KEY (completed_by) REFERENCES users(id)
+    FOREIGN KEY (completed_by) REFERENCES users(id),
+    
+    FOREIGN KEY (validated_by) REFERENCES users(id)
 
 );
 
