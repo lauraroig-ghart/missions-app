@@ -1,3 +1,6 @@
+
+
+
 <section class="child-hero">
 
     <div class="child-info">
@@ -18,20 +21,59 @@
 
     <div class="hero-progress">
 
-        <div class="hero-level">
+        <div class="player-stats">
 
-            <span>Nivell {{ user.level }}</span>
+            <div>
+                🏆
+                <strong>{{ user.level }}</strong>
+                <small>Nivell</small>
+            </div>
+            <div>
+                ⭐
+                <strong>{{ user.points }}</strong>
+                <small>XP</small>
+            </div>   
+            <div>
+                💰
+                <strong>{{ user.coins }}</strong>
+                <small>Monedes</small>
+            </div>
 
-            <span>{{ user.points }} XP</span>
-
+            <div>
+                🔥
+                <strong>{{ user.streak }}</strong>
+                <small>Ratxa</small>
+            </div>
         </div>
 
-        <div class="progress-ui">
 
-            <div class="progress-ui-value" style="width: {{ (user.points % 100) }}%;"></div>
+        <div class="level-progress">
+
+            <div class="progress-bar">
+                <div class="progress-fill"
+                    style="width: {{ user.level_progress }}%">
+                </div>
+            </div>
+
+            <small>
+                {{ user.level_progress }}% fins al següent nivell
+            </small>
 
         </div>
+    </div>
+    <div class="hero-level">
+
+        <span>Nivell {{ user.level }}</span>
+
+        <span>{{ user.points }} XP</span>
 
     </div>
+
+    <div class="progress-ui">
+
+        <div class="progress-ui-value" style="width: {{ (user.points % 100) }}%;"></div>
+
+    </div>
+
 
 </section>

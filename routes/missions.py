@@ -50,18 +50,3 @@ def complete(assignment_id):
 
     return redirect(url_for("dashboard.dashboard"))
 
-@missions_bp.post("/admin/mission/<int:assignment_id>/approve")
-def approve(assignment_id):
-    
-    # Aquí crides a la funció que fa el canvi a la BD (aprovar)
-    approve_mission(assignment_id)
-    
-    return redirect(url_for("admin.admin")) # Torna a la pàgina d'admin
-
-@missions_bp.post("/admin/mission/<int:assignment_id>/reject")
-def reject(assignment_id):
-     
-    # Aquí crides a la funció que fa el canvi a la BD (rebutjar)
-    reject_mission(assignment_id)
-    
-    return redirect(url_for("admin.admin"))

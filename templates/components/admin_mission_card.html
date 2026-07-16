@@ -1,0 +1,49 @@
+<div class="mission-card category-{{ mission.category|lower|replace(' ','-') }}">
+
+    <div class="mission-top">
+
+        <div class="mission-icon">
+            {{ mission.icon or "📖" }}
+        </div>
+
+        <div class="mission-info">
+
+            <h3>{{ mission.title }}</h3>
+
+            <p><strong>{{ mission.gamer_name }}</strong></p>
+
+            {% if mission.description %}
+                <p>{{ mission.description }}</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="mission-meta">
+        <span>⭐ {{ mission.points }} XP</span>
+    </div>
+
+    <div class="button-group">
+
+        <form method="POST"
+              action="{{ url_for('admin.approve', assignment_id=mission.assignment_id) }}">
+
+            <button class="btn-ui btn-success-ui">
+                ✅ Aprovar
+            </button>
+
+        </form>
+
+        <form method="POST"
+              action="{{ url_for('admin.reject', assignment_id=mission.assignment_id) }}">
+
+            <button class="btn-ui btn-danger-ui">
+                ❌ Rebutjar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

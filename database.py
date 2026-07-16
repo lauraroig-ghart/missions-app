@@ -268,29 +268,81 @@ def get_waiting_validations():
         ORDER BY ma.completed_at
         """
     )
-def approve_mission(assignment_id):
-    # 1. Marquem la missió com a completada
+def approve_mission(assignment_id, admin_id):
+
+    data = query_one(
+        """
+        SELECT
+            ma.user_id,
+            m.points
+        FROM mission_assignments ma
+        JOIN missions m
+            ON m.id = ma.mission_id
+        WHERE ma.id = ?
+          AND ma.status = 'waiting_validation'
+        """,
+        (assignment_id,)
+    )
+
+    if not data:
+        return False
+
     execute(
         """
         UPDATE mission_assignments
-        SET status='completed', completed_at=?
+        SET
+            status='completed',
+            validated_at=?,
+            validated_by=?
         WHERE id=?
         """,
-        (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), assignment_id)
+        (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            admin_id,
+            assignment_id
+        )
     )
-    
-    # 2. Sumem els punts a l'usuari (assumint que tens la relació amb user_id)
-    # Primer busquem quants punts té la missió i qui és l'usuari
-    data = query("""
-        SELECT ma.user_id, m.points 
-        FROM mission_assignments ma
-        JOIN missions m ON m.id = ma.mission_id
-        WHERE ma.id = ?
-    """, (assignment_id,))
-    
-    if data:
-        user_id, points = data[0]['user_id'], data[0]['points']
-        execute("UPDATE users SET points = points + ? WHERE id = ?", (points, user_id))
+
+    execute(
+        """
+        UPDATE users
+        SET points = points + ?
+        WHERE id = ?
+        """,
+        (
+            data["points"],
+            data["user_id"]
+        )
+    )
+
+    execute(
+        """
+        INSERT INTO points_history(
+            user_id,
+            mission_id,
+            points,
+            reason
+        )
+        VALUES(
+            ?,
+            (
+                SELECT mission_id
+                FROM mission_assignments
+                WHERE id=?
+            ),
+            ?,
+            'Mission completed'
+        )
+        """,
+        (
+            data["user_id"],
+            assignment_id,
+            data["points"]
+        )
+    )
+
+    return True
+
 
 def reject_mission(assignment_id):
     # Tornem la missió a 'pending' perquè el nen ho pugui tornar a intentar
@@ -302,3 +354,15 @@ def reject_mission(assignment_id):
         """,
         (assignment_id,)
     )
+
+def count_waiting_validations():
+
+    row = query_one(
+        """
+        SELECT COUNT(*) AS total
+        FROM mission_assignments
+        WHERE status='waiting_validation'
+        """
+    )
+
+    return row["total"]

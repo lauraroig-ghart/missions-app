@@ -64,6 +64,23 @@
 
 {% block extra_js %}{% endblock %}
 
+
+<script>
+
+const open=document.getElementById("open-validations");
+const panel=document.getElementById("validation-panel");
+const close=document.getElementById("close-validations");
+
+if(open){
+
+    open.onclick=()=>panel.classList.add("open");
+
+    close.onclick=()=>panel.classList.remove("open");
+
+}
+
+</script>
+
 </body>
 
 </html>

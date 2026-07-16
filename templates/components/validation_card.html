@@ -1,0 +1,67 @@
+<div class="validation-card">
+
+    <div class="validation-header">
+
+        <div class="mission-icon">
+            {{ mission.icon or "📖" }}
+        </div>
+
+        <div>
+
+            <h3>{{ mission.title }} </h3>
+               
+            <div class="validation-user">
+                👤 {{ mission.gamer_name }}
+                
+                   <p class="validation-date">
+
+                    🕒 {{ mission.time_ago }}
+
+                    ·
+
+                    {{ mission.completed_date }}
+
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    {% if mission.description %}
+        <p class="validation-description">
+            {{ mission.description }}
+        </p>
+    {% endif %}
+
+    <div class="validation-footer">
+
+        <span class="validation-points">
+            ⭐ {{ mission.points }} XP
+        </span>
+
+        <div class="button-group">
+
+            <form method="POST"
+                  action="{{ url_for('admin.approve', assignment_id=mission.assignment_id) }}">
+
+                <button class="btn-ui btn-success-ui">
+                    ✅ Aprovar
+                </button>
+
+            </form>
+
+            <form method="POST"
+                  action="{{ url_for('admin.reject', assignment_id=mission.assignment_id) }}">
+
+                <button class="btn-ui btn-danger-ui">
+                    ❌ Retornar
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

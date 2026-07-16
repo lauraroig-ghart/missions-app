@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section">
+
+    <h2>🔐 Accés administrador</h2>
+
+    <form method="POST">
+
+        <input 
+            type="password"
+            name="pin"
+            placeholder="PIN administrador"
+            maxlength="6"
+        >
+
+        <button class="btn-ui btn-primary-ui">
+            Entrar
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}

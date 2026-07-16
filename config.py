@@ -35,3 +35,6 @@ class Config:
     # PWA (més endavant)
     PWA_NAME = "Missions"
     PWA_SHORT_NAME = "Missions"
+
+    #password admin
+    ADMIN_PIN = "9876"

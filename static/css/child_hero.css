@@ -1,0 +1,77 @@
+
+.hero-level {
+    display:flex;
+    justify-content:space-between;
+    font-weight:bold;
+    font-size:1rem;
+}
+
+
+.progress-ui {
+    height:10px;
+    background:#eee;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+
+.progress-ui-value {
+    height:100%;
+    background:linear-gradient(90deg,#4caf50,#8bc34a);
+}
+
+.child-hero{
+
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.hero-stats{
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+
+    font-size:1.1rem;
+    font-weight:600;
+
+}
+
+.hero-player{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+
+}
+
+.child-avatar{
+
+    width:110px;
+    height:110px;
+
+    font-size:5rem;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+    background:rgba(255,255,255,.18);
+
+    margin-bottom:16px;
+
+}
+
+@media (max-width:768px){
+
+    .child-hero{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

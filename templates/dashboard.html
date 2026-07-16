@@ -10,25 +10,124 @@
 
 {% include "components/child_hero.html" %}
 
+   
 
-<div class="stats-grid">
 
-    {% set stat={"icon":"⭐","value":user.points,"label":"XP"} %}
-    {% include "components/stat_card.html" %}
 
-    {% set stat={"icon":"🏆","value":user.level,"label":"Nivell"} %}
-    {% include "components/stat_card.html" %}
+{% if user.role == "admin" %}
 
-    {% set stat={"icon":"💰","value":0,"label":"Monedes"} %}
-    {% include "components/stat_card.html" %}
+<div class="card-ui admin-card">
 
-    {% set stat={"icon":"🔥","value":0,"label":"Ratxa"} %}
-    {% include "components/stat_card.html" %}
+    <div class="admin-card-info">
+
+        <h2>⏳ Pendents de validar</h2>
+
+        <p>{{ waiting_count }} missions esperen revisió</p>
+        
+
+        {% if user.role == "admin" %}
+
+            <section class="section">
+
+                <div class="mission-grid">
+
+                    {% for mission in waiting %}
+
+                           {% include "components/validation_card.html" %}
+
+
+                    {% else %}
+
+                        <div class="empty-state">
+                            No hi ha missions pendents de validar.
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            {% endif %}
+
+    </div>
+
+    <button
+        class="btn-ui btn-primary-ui"
+        id="open-validations"
+    >
+        Obrir
+    </button>
 
 </div>
 
+{% endif %}
 
 <section class="section">
+
+    <details open>
+
+        <summary>
+            📋 Missions pendents ({{ pending_missions|length }})
+        </summary>
+
+        <div class="mission-grid">
+
+            {% for mission in pending_missions %}
+                {% include "components/mission_card.html" %}
+            {% else %}
+                <div class="empty-state">
+                    No tens missions pendents.
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </details>
+
+
+    <details open>
+
+        <summary>
+            🕒 Esperant validació ({{ waiting_missions|length }})
+        </summary>
+
+        <div class="mission-grid">
+
+            {% for mission in waiting_missions %}
+                {% include "components/mission_card.html" %}
+            {% else %}
+                <div class="empty-state">
+                    No hi ha missions esperant validació.
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            🏆 Missions completades ({{ completed_missions|length }})
+        </summary>
+
+        <div class="mission-grid">
+
+            {% for mission in completed_missions %}
+                {% include "components/mission_card.html" %}
+            {% else %}
+                <div class="empty-state">
+                    Encara no hi ha missions completades.
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </details>
+<!--
+
 
     <h2>🎯 Les missions d'avui</h2>
 
@@ -62,14 +161,20 @@
 
         {% for mission in waiting_missions %}
 
-            {% include "components/mission_card.html" %}
+            {% if user.role == "admin" %}
+                {% include "components/validation_card.html" %}
+            
+            {% else %}
+
+                {% include "components/mission_card.html" %}
+            {% endif %}
 
         {% endfor %}
 
     </div>
 
     {% endif %}
-
+-->
 </section>
 
 {% endblock %}
