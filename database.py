@@ -19,6 +19,7 @@ def get_connection():
     """
     Retorna una connexió SQLite.
     """
+    
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON;")
@@ -366,3 +367,65 @@ def count_waiting_validations():
     )
 
     return row["total"]
+
+# ==========================
+# MISSIONS
+# ==========================
+
+def get_all_missions():
+   
+    return query(
+        """
+        SELECT
+
+            m.*,
+
+            c.name AS category_name,
+
+            c.icon AS category_icon,
+
+            c.color AS category_color,
+
+            mt.name AS mission_type
+
+        FROM missions m
+
+        INNER JOIN categories c
+            ON c.id = m.category_id
+
+        LEFT JOIN mission_types mt
+            ON mt.id = m.mission_type_id
+
+        ORDER BY
+
+            c.sort_order,
+
+            m.title
+        """
+    )
+
+def get_mission(mission_id):
+
+    return query_one("""
+        SELECT *
+        FROM missions
+        WHERE id = ?
+    """, (mission_id,))
+
+def get_categories():
+
+    return query("""
+        SELECT *
+        FROM categories
+        ORDER BY name
+    """)
+
+
+def get_family_users(family_id=1):
+
+    return query("""
+        SELECT *
+        FROM users
+        WHERE family_id = ?
+        ORDER BY role DESC, name
+    """, (family_id,))

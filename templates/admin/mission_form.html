@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if mission %}
+        Editar missió
+    {% else %}
+        Nova missió
+    {% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+
+<div class="page-header">
+
+    <div>
+
+        <h1>
+            {% if mission %}
+                ✏️ Editar missió
+            {% else %}
+                ➕ Nova missió
+            {% endif %}
+        </h1>
+
+        <p>Defineix una missió per a la família.</p>
+
+    </div>
+
+</div>
+
+
+<div class="card-ui">
+
+    <h2>📝 Informació</h2>
+
+    <div class="form-grid">
+
+        <div>
+
+            <label>Nom</label>
+
+            <input
+                type="text"
+                name="title"
+                value="{{ mission.title if mission else '' }}"
+                required
+            >
+
+        </div>
+
+        <div>
+
+            <label>Categoria</label>
+
+            <select name="category_id">
+
+                {% for category in categories %}
+
+                <option
+                    value="{{ category.id }}"
+                    {% if mission and mission.category_id == category.id %}
+                    selected
+                    {% endif %}
+                >
+                    {{ category.name }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div class="full">
+
+            <label>Descripció</label>
+
+            <textarea
+                rows="4"
+                name="description"
+            >{{ mission.description if mission else '' }}</textarea>
+
+        </div>
+
+    </div>
+
+</div>
+<!--😊 Icona
+
+🏠 🧹 🛏️ 🗑️ 🍽️ 🐶 🐱 📚 ✏️ 🎒 ⚽ 🏑 🚲 🎮 ❤️ ⭐-->
+
+<div class="card-ui">
+
+    <h2>⭐ Recompensa</h2>
+
+    <div class="form-grid">
+
+        <div>
+
+            <label>XP</label>
+
+            <input
+                type="number"
+                name="points"
+                value="{{ mission.points if mission else 10 }}"
+            >
+
+        </div>
+
+        <div>
+
+            <label>Monedes</label>
+
+            <input
+                type="number"
+                name="coins"
+                value="{{ mission.coins if mission else 0 }}"
+            >
+
+        </div>
+
+        <div>
+
+            <label>Dificultat</label>
+
+            <select name="difficulty">
+
+                {% for i in range(1,6) %}
+
+                <option
+                    value="{{ i }}"
+                    {% if mission and mission.difficulty == i %}
+                    selected
+                    {% endif %}
+                >
+                    {{ "⭐"*i }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <div>
+
+            <label>Temps estimat (min)</label>
+
+            <input
+                type="number"
+                name="estimated_minutes"
+                value="{{ mission.estimated_minutes if mission else '' }}"
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card-ui">
+
+    <h2>⚙️ Comportament</h2>
+
+    <div class="form-grid">
+
+        <label>
+
+            <input
+                type="checkbox"
+                name="requires_validation"
+                {% if not mission or mission.requires_validation %}
+                checked
+                {% endif %}
+            >
+
+            Requereix validació
+
+        </label>
+
+        <label>
+
+            <input
+                type="checkbox"
+                name="active"
+                {% if not mission or mission.active %}
+                checked
+                {% endif %}
+            >
+
+            Missió activa
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<div class="form-actions">
+
+    <a
+        href="{{ url_for('admin.missions') }}"
+        class="btn-ui"
+    >
+        Cancel·lar
+    </a>
+
+    <button
+        class="btn-ui btn-primary-ui"
+        type="submit"
+    >
+
+        💾 Desar missió
+
+    </button>
+
+</div>
+
+</form>
+
+{% endblock %}

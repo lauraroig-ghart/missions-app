@@ -1,23 +1,30 @@
 <nav class="topbar">
 
     <div class="topbar-title">
-
         🎯 Missions
+    </div>
+
+    {% if session.get("role") == "admin" %}
+    <div class="admin-nav">
+
+        <a href="{{ url_for('admin.missions') }}">📋</a>
+
+        <a href="#">🗓️</a>
+
+        <a href="#">📊</a>
+
+        <a href="#">⚙️</a>
 
     </div>
+    {% endif %}
 
     <div class="topbar-actions">
 
-        <span>
+        <span>{{ session.get("user_name") }}</span>
 
-            {{ session.get("user_name") }}
-
-        </span>
-
-        <a href="{{ url_for('auth.logout') }}" class="btn-ui btn-danger-ui">
-
+        <a href="{{ url_for('auth.logout') }}"
+           class="btn-ui btn-danger-ui">
             Sortir
-
         </a>
 
     </div>

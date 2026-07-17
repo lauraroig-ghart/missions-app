@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Missions{% endblock %}
+
+{% block content %}
+
+<section class="section">
+
+    <div class="page-title">
+
+        <h1>📋 Catàleg de missions</h1>
+
+        <button class="btn-ui btn-primary-ui">
+
+            ➕ Nova missió
+
+        </button>
+        <a class="btn-ui btn-primary-ui"
+            href="{{ url_for('admin.mission_new') }}">
+                ➕ Nova missió
+        </a>
+
+    </div>
+
+    <div class="mission-grid">
+
+        {% for mission in missions %}
+            <a
+                class="btn-ui"
+                href="{{ url_for('admin.mission_edit', id=mission.id) }}"
+            >
+                ✏️
+            </a>
+            {{ mission.title }}<br>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

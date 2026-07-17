@@ -50,7 +50,10 @@ def login_user(username):
     session["user_name"] = user["name"]
     session["role"] = user["role"]
 
-    return redirect(url_for("dashboard.dashboard"))
+    if user["role"] == "admin":
+        return redirect(url_for("admin.admin"))
+    else:
+        return redirect(url_for("dashboard.dashboard"))
 
 
 @auth_bp.route("/logout")

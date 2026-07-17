@@ -84,7 +84,10 @@ CREATE TABLE mission_types (
 
     name TEXT NOT NULL,
 
-    description TEXT
+    description TEXT,
+
+    -- Ordre de visualització
+    sort_order INTEGER DEFAULT 0,
 
 );
 
@@ -120,6 +123,20 @@ CREATE TABLE missions (
     requires_validation INTEGER DEFAULT 0,
 
     repeat_type TEXT DEFAULT 'none',
+        -- Recompensa en monedes
+    coins INTEGER DEFAULT 0,
+
+    -- Es pot repetir diverses vegades el mateix dia
+    repeat_same_day INTEGER DEFAULT 0,
+
+    -- Si en caducar queda cancel·lada automàticament
+    expire_action TEXT DEFAULT 'cancel',
+
+    -- Color personalitzat (opcional)
+    color TEXT,
+
+    -- Ordre de visualització
+    sort_order INTEGER DEFAULT 0,
 
     active INTEGER DEFAULT 1,
 
